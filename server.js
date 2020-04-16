@@ -22,13 +22,13 @@ app.post("/schedule", (req, res) => {
 app.post("/leadqualified", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
-   events.leadqualified(data);
+   events.leadQualified(data);
 });
 
 app.post("/leadlost", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
-    events.leadlost(data);
+    events.leadLost(data);
 });
 
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`))

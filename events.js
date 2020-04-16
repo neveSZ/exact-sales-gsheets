@@ -2,6 +2,8 @@ require('dotenv/config');
 const googleSheet = require('./sheets');
 
 function leadInserted(data){
+    dtCriacao = new Date(data.Lead.DtCadastro);
+    dtCriacao = dtCriacao.getDate() + '/' + (dtCriacao.getMonth()+1) + '/' + dtCriacao.getFullYear();
     const row = {
         leadId: data.Lead.id,
         linkLead: `https://app.exactsales.com.br/spotter/detalhes-lead/${data.Lead.id}`,
@@ -13,7 +15,7 @@ function leadInserted(data){
         linkMarketing: data.Lead.LinkMkt,
         prevendedorNome: data.Lead.PreVendedor.Nome,
         prevendedorEmail: data.Lead.PreVendedor.Email,
-        dataCriacao: data.Lead.DtCadastro
+        dataCriacao: dtCriacao
     }
     googleSheet.add(process.env.GOOGLE_WORKSHEET_NEW, row);
 }

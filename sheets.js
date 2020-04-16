@@ -9,7 +9,6 @@ async function add(worksheetId,row){
     });
     await doc.loadInfo();
     const sheet = doc.sheetsById[worksheetId];
-    console.log(row);
     await sheet.addRow(row);
 }
 
