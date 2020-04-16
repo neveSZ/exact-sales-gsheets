@@ -1,0 +1,24 @@
+{
+    "name": "Exact Piperun",
+    "description": "Pegar os dados da API dos CRMs e mandar para o Sheets",
+    "website": "https://github.com/neveSZ/exact-piperun",
+    "buildpacks": [{
+            "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+        }
+    ],
+    "env": {
+        "GOOGLE_TOKEN": {
+            "description": "Token do Sheets"
+        }
+    },
+    "formation": {
+        "web": {
+            "quantity": 0,
+            "size": "free"
+        },
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+}
