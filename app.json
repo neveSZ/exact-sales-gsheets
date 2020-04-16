@@ -7,16 +7,30 @@
         }
     ],
     "env": {
-        "GOOGLE_TOKEN": {
-            "description": "Token do Sheets"
+        "GOOGLE_CLIENT_EMAIL ": {
+            "description": "Email do arquivo client.json"
+        },
+        "GOOGLE_PRIVATE_KEY": {
+            "description": "Key do arquivo client.json"
+        },
+        "GOOGLE_SPREADSHEET_ID": {
+            "description": "ID do spreadsheet, pegar na url"
+        },
+        "GOOGLE_WORKSHEET_NEW ": {
+            "description": "ID da sheet de novos leads, pegar na url"
+        },
+        "GOOGLE_WORKSHEET_SCHEDULE ": {
+            "description": "ID da sheet de reunioes agendadas, pegar na url"
+        },
+        "GOOGLE_WORKSHEET_QUALIFIED": {
+            "description": "ID da sheet de qualificados, pegar na url"
+        },
+        "GOOGLE_WORKSHEET_LOST": {
+            "description": "ID da sheet de descartados, pegar na url"
         }
     },
     "formation": {
         "web": {
-            "quantity": 0,
-            "size": "free"
-        },
-        "worker": {
             "quantity": 1,
             "size": "free"
         }

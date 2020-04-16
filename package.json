@@ -15,6 +15,9 @@
   "homepage": "https://github.com/neveSZ/exact-pipe#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "google-spreadsheet": "^3.0.11",
+    "util": "^0.12.2"
   }
 }

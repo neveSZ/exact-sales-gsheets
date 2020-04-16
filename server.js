@@ -1,8 +1,9 @@
+require('dotenv/config');
 const express = require("express");
 const bodyParser = require("body-parser");
-const events = require('./events');
 const app = express();
-const PORT = process.env.PORT || 9005;
+const PORT = process.env.PORT;
+const events = require("./events")
 
 app.use(bodyParser.json());
 
