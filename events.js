@@ -2,15 +2,31 @@ require('dotenv/config');
 const googleSheet = require('./sheets');
 
 function leadInserted(data){
-    dtCriacao = new Date(data.Lead.DtCadastro);
+    var origem=null;
+    var subOrigem=null;
+    var mercado=null;
+    var dtCriacao = new Date(data.Lead.DtCadastro);
     dtCriacao = dtCriacao.getDate() + '/' + (dtCriacao.getMonth()+1) + '/' + dtCriacao.getFullYear();
+    
+
+    // Verificar se existe
+    if(data.Lead.SubOrigem != null)
+        subOrigem=data.Lead.SubOrigem.value;
+
+    if(data.Lead.Origem != null)
+        origem=data.Lead.Origem.value;
+
+    if(data.Lead.Mercado != null)
+        mercado=data.Lead.Mercado.value;
+
+
     const row = {
         leadId: data.Lead.id,
-        linkLead: `https://app.exactsales.com.br/spotter/detalhes-lead/${data.Lead.id}`,
+        linkLead: data.Lead.LinkPublico,
         nomeEmpresa: data.Lead.Empresa,
-        origem: data.Lead.Origem.value,
-        subOrigem: data.Lead.SubOrigem.value,
-        mercado: data.Lead.Mercado.value,
+        origem: origem,
+        subOrigem: subOrigem,
+        mercado: mercado,
         outroSegmento: 0, //to-do campo personalizado
         linkMarketing: data.Lead.LinkMkt,
         prevendedorNome: data.Lead.PreVendedor.Nome,
