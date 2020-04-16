@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 app.post("/leadinserted", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
+    console.log(data);
     events.leadInserted(data);
 });
 
