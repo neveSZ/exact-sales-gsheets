@@ -23,6 +23,7 @@ app.post("/schedule", (req, res) => {
 app.post("/leadqualified", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
+    events.leadQualified(data);
     console.log(data.Lead.CamposPersonalizados);
 });
 
