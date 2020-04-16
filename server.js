@@ -17,19 +17,19 @@ app.post("/leadinserted", (req, res) => {
 app.post("/schedule", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
-    events.schedule(data);
+    events.schedule(data.Lead.Etapas);
 });
 
 app.post("/leadqualified", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
-   events.leadQualified(data);
+   events.leadQualified(data.Lead.Etapas);
 });
 
 app.post("/leadlost", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
-    events.leadLost(data);
+    events.leadLost(data.Lead.Etapas);
 });
 
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`))
