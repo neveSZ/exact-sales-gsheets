@@ -7,31 +7,27 @@ const PORT = process.env.PORT || 9005;
 app.use(bodyParser.json());
 
 app.post("/leadinserted", (req, res) => {
-    res.send(200);
+    res.sendStatus(200);
     const data = req.body;
     events.leadInserted(data);
-    console.log(data);
 });
 
 app.post("/schedule", (req, res) => {
-    res.send(200);
+    res.sendStatus(200);
     const data = req.body;
     events.schedule(data);
-    console.log(data);
 });
 
 app.post("/leadqualified", (req, res) => {
-    res.send(200);
+    res.sendStatus(200);
     const data = req.body;
    events.leadqualified(data);
-    console.log(data);
 });
 
 app.post("/leadlost", (req, res) => {
-    res.send(200);
+    res.sendStatus(200);
     const data = req.body;
     events.leadlost(data);
-    console.log(data);
 });
 
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`))
