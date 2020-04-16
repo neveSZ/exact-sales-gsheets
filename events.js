@@ -1,13 +1,21 @@
 require('dotenv/config');
 const googleSheet = require('./sheets');
 
+function dateDiff(data1, data2){
+    var dataA = new Date(data1);
+    var dataB = new Date(data2);
+    return parseInt((dataA-dataB)/(1000 * 60 * 60 * 24))+1
+}
+
+function dateFormat(data){
+    var dt = new Date(data);
+    return dt.getDate() + '/' + (dt.getMonth()+1) + '/' + dt.getFullYear();
+}
+
 function leadInserted(data){
     var origem=null;
     var subOrigem=null;
     var mercado=null;
-    var dtCriacao = new Date(data.Lead.DtCadastro);
-    dtCriacao = dtCriacao.getDate() + '/' + (dtCriacao.getMonth()+1) + '/' + dtCriacao.getFullYear();
-    
 
     // Verificar se existe
     if(data.Lead.SubOrigem != null)
@@ -27,17 +35,54 @@ function leadInserted(data){
         origem: origem,
         subOrigem: subOrigem,
         mercado: mercado,
-        outroSegmento: 0, //to-do campo personalizado
         linkMarketing: data.Lead.LinkMkt,
         prevendedorNome: data.Lead.PreVendedor.Nome,
         prevendedorEmail: data.Lead.PreVendedor.Email,
-        dataCriacao: dtCriacao
+        dataCriacao: dateFormat(data.Lead.DtCadastro)
     }
     googleSheet.add(process.env.GOOGLE_WORKSHEET_NEW, row);
 }
 
 function schedule(data){
-    console.log(data);
+    var origem=null;
+    var subOrigem=null;
+    var mercado=null;
+
+
+    if(data.Lead.SubOrigem != null)
+    subOrigem=data.Lead.SubOrigem.value;
+
+    if(data.Lead.Origem != null)
+        origem=data.Lead.Origem.value;
+
+    if(data.Lead.Mercado != null)
+        mercado=data.Lead.Mercado.value;
+
+
+    const row = {
+        leadId: data.Lead.id,
+        linkLead: data.Lead.LinkPublico,
+        nomeEmpresa: data.Lead.Empresa,
+        origem: origem,
+        subOrigem: subOrigem,
+        mercado: mercado,
+        //outros: outros,
+        linkMarketing: data.Lead.LinkMkt,
+        prevendedorNome: data.Lead.PreVendedor.Nome,
+        prevendedorEmail: data.Lead.PreVendedor.Email,
+        vendedorNome: data.Lead.Vendedor.Nome,
+        vendedorEmail: data.Lead.Vendedor.Email,
+        dataCriacao: dateFormat(data.Lead.DtCadastro),
+        dataFiltro1: dateFormat(data.Lead.Etapas[0].DtAvaliacao),
+        dataFiltro2: dateFormat(data.Lead.Etapas[1].DtAvaliacao),
+        dataAgendamento: dateFormat(data.Lead.DtAtualizacao),
+        dataReuniao: dateFormat(data.Agendamento.DtInicio),
+        tempoFiltro1: dateDiff(data.Lead.Etapas[1].DtAvaliacao, data.Lead.Etapas[0].DtAvaliacao),
+        tempoFiltro2: dateDiff(data.Lead.DtAtualizacao, data.Lead.Etapas[1].DtAvaliacao),
+        tempoTotal: dateDiff(data.Lead.DtAtualizacao, data.Lead.DtCadastro),
+        tempoAteReuniao: dateDiff(data.Agendamento.DtInicio, data.Lead.DtAtualizacao)
+    }
+    googleSheet.add(process.env.GOOGLE_WORKSHEET_SCHEDULE, row);
 }
 
 function leadQualified(data){
