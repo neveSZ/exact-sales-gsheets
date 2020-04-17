@@ -125,7 +125,7 @@ function leadLost(data) {
     var origem = null;
     var subOrigem = null;
     var mercado = null;
-    var vendedor = null;
+    var vendedor = {Nome: null,Email: null};
 
 
     if (data.Lead.SubOrigem != null)
