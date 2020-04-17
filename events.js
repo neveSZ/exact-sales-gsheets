@@ -122,7 +122,40 @@ function leadQualified(data) {
 }
 
 function leadLost(data) {
-    console.log(data);
+    var origem = null;
+    var subOrigem = null;
+    var mercado = null;
+
+
+    if (data.Lead.SubOrigem != null)
+        subOrigem = data.Lead.SubOrigem.value;
+
+    if (data.Lead.Origem != null)
+        origem = data.Lead.Origem.value;
+
+    if (data.Lead.Mercado != null)
+        mercado = data.Lead.Mercado.value;
+
+    const row = {
+        leadId: data.Lead.id,
+        linkLead: data.Lead.LinkPublico,
+        nomeEmpresa: data.Lead.Empresa,
+        origem: origem,
+        subOrigem: subOrigem,
+        mercado: mercado,
+        //outros: outros,
+        linkMarketing: data.Lead.LinkMkt,
+        prevendedorNome: data.Lead.PreVendedor.Nome,
+        prevendedorEmail: data.Lead.PreVendedor.Email,
+        vendedorNome: data.Lead.Vendedor.Nome,
+        vendedorEmail: data.Lead.Vendedor.Email,
+        dataCriacao: dateFormat(data.Lead.DtCadastro),
+        dataDescarte: dateFormat(data.Lead.DtAtualizacao),
+        etapaAnterior: data.Lead.Etapas[data.Lead.Etapas.length-1].Etapa,
+        motivoDescarte: data.Lead.MotivoDescarte,
+        tempoDescarte: dateDiff(data.Lead.DtAtualizacao, data.Lead.DtCadastro)
+    }
+    googleSheet.add(process.env.GOOGLE_WORKSHEET_LOST, row);
 }
 
 exports.leadInserted = leadInserted;

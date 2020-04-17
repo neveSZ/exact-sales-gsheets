@@ -18,19 +18,21 @@ app.post("/schedule", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
     console.log(data.Lead.CamposPersonalizados);
+    events.schedule(data);
 });
 
 app.post("/leadqualified", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
-    events.leadQualified(data);
     console.log(data.Lead.CamposPersonalizados);
+    events.leadQualified(data);
 });
 
 app.post("/leadlost", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
     console.log(data.Lead.CamposPersonalizados);
+    events.leadLost(data);
 });
 
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`))
