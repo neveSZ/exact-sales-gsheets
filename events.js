@@ -125,6 +125,7 @@ function leadLost(data) {
     var origem = null;
     var subOrigem = null;
     var mercado = null;
+    var vendedor = null;
 
 
     if (data.Lead.SubOrigem != null)
@@ -135,6 +136,9 @@ function leadLost(data) {
 
     if (data.Lead.Mercado != null)
         mercado = data.Lead.Mercado.value;
+
+    if (data.Lead.Vendedor != null)
+        vendedor = data.Lead.Vendedor;
 
     const row = {
         leadId: data.Lead.id,
@@ -147,8 +151,8 @@ function leadLost(data) {
         linkMarketing: data.Lead.LinkMkt,
         prevendedorNome: data.Lead.PreVendedor.Nome,
         prevendedorEmail: data.Lead.PreVendedor.Email,
-        vendedorNome: data.Lead.Vendedor.Nome,
-        vendedorEmail: data.Lead.Vendedor.Email,
+        vendedorNome: vendedor.Nome,
+        vendedorEmail: vendedor.Email,
         dataCriacao: dateFormat(data.Lead.DtCadastro),
         dataDescarte: dateFormat(data.Lead.DtAtualizacao),
         etapaAnterior: data.Lead.Etapas[data.Lead.Etapas.length-1].Etapa,
