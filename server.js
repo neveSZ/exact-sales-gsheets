@@ -11,28 +11,32 @@ app.post("/leadinserted", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
     console.log(data.Lead.CamposPersonalizados);
-    events.leadInserted(data);
+    if (data.Lead != null)
+        events.leadInserted(data);
 });
 
 app.post("/schedule", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
     console.log(data.Lead.CamposPersonalizados);
-    events.schedule(data);
+    if (data.Lead != null)
+        events.schedule(data);    
 });
 
 app.post("/leadqualified", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
     console.log(data.Lead.CamposPersonalizados);
-    events.leadQualified(data);
+    if (data.Lead != null)
+        events.leadQualified(data);
 });
 
 app.post("/leadlost", (req, res) => {
     res.sendStatus(200);
     const data = req.body;
     console.log(data.Lead.CamposPersonalizados);
-    events.leadLost(data);
+    if (data.Lead != null)
+        events.leadLost(data);
 });
 
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`))
