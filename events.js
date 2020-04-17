@@ -1,6 +1,14 @@
 require('dotenv/config');
 const googleSheet = require('./sheets');
 
+function checkOutros(arrayCampos){
+    for(var i=0; i<arrayCampos.length;i++){
+        if (arrayCampos[i].id == "_seoutros")
+            return arrayCampos[i].value;
+    }
+    return null;
+}
+
 function dateDiff(data1, data2) {
     var dataA = new Date(data1);
     var dataB = new Date(data2);
@@ -64,7 +72,7 @@ function schedule(data) {
         origem: origem,
         subOrigem: subOrigem,
         mercado: mercado,
-        //outros: outros,
+        outros: checkOutros(data.Lead.CamposPersonalizados),
         linkMarketing: data.Lead.LinkMkt,
         prevendedorNome: data.Lead.PreVendedor.Nome,
         prevendedorEmail: data.Lead.PreVendedor.Email,
@@ -97,7 +105,7 @@ function leadQualified(data) {
 
     if (data.Lead.Mercado != null)
         mercado = data.Lead.Mercado.value;
-
+    
     const row = {
         leadId: data.Lead.id,
         linkLead: data.Lead.LinkPublico,
@@ -105,7 +113,7 @@ function leadQualified(data) {
         origem: origem,
         subOrigem: subOrigem,
         mercado: mercado,
-        //outros: outros,
+        outros: checkOutros(data.Lead.CamposPersonalizados),
         linkMarketing: data.Lead.LinkMkt,
         prevendedorNome: data.Lead.PreVendedor.Nome,
         prevendedorEmail: data.Lead.PreVendedor.Email,
@@ -147,7 +155,7 @@ function leadLost(data) {
         origem: origem,
         subOrigem: subOrigem,
         mercado: mercado,
-        //outros: outros,
+        outros: checkOutros(data.Lead.CamposPersonalizados),
         linkMarketing: data.Lead.LinkMkt,
         prevendedorNome: data.Lead.PreVendedor.Nome,
         prevendedorEmail: data.Lead.PreVendedor.Email,
