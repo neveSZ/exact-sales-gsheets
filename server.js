@@ -8,35 +8,41 @@ const events = require("./events")
 app.use(bodyParser.json());
 
 app.post("/leadinserted", (req, res) => {
-    res.sendStatus(200);
     const data = req.body;
-    console.log(data.Lead.CamposPersonalizados);
-    if (data.Lead != null)
+    if (data.Lead != null) {
+        res.sendStatus(200);
+        console.log(`Lead inserido, id do Lead: ${data.Lead.id}`);
         events.leadInserted(data);
+    } 
 });
 
 app.post("/schedule", (req, res) => {
-    res.sendStatus(200);
+
     const data = req.body;
-    console.log(data.Lead.CamposPersonalizados);
-    if (data.Lead != null)
-        events.schedule(data);    
+    if (data.Lead != null) {
+        res.sendStatus(200);
+        console.log(`Lead agendado, id do Lead: ${data.Lead.id}`);
+        events.schedule(data);
+    }
+
 });
 
 app.post("/leadqualified", (req, res) => {
-    res.sendStatus(200);
     const data = req.body;
-    console.log(data.Lead.CamposPersonalizados);
-    if (data.Lead != null)
+    if (data.Lead != null) {
+        res.sendStatus(200);
+        console.log(`Lead qualificado, id do Lead: ${data.Lead.id}`);
         events.leadQualified(data);
+    }
 });
 
 app.post("/leadlost", (req, res) => {
-    res.sendStatus(200);
     const data = req.body;
-    console.log(data.Lead.CamposPersonalizados);
-    if (data.Lead != null)
+    if (data.Lead != null) {
+        res.sendStatus(200);
+        console.log(`Lead descartado, id do Lead: ${data.Lead.id}`);
         events.leadLost(data);
+    }
 });
 
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`))
