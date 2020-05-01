@@ -1,8 +1,8 @@
 require('dotenv/config');
 const googleSheet = require('./sheets');
 
-function checkOutros(arrayCampos){
-    for(var i=0; i<arrayCampos.length;i++){
+function checkOutros(arrayCampos) {
+    for (var i = 0; i < arrayCampos.length; i++) {
         if (arrayCampos[i].id == "_seoutros")
             return arrayCampos[i].value;
     }
@@ -105,7 +105,7 @@ function leadQualified(data) {
 
     if (data.Lead.Mercado != null)
         mercado = data.Lead.Mercado.value;
-    
+
     const row = {
         leadId: data.Lead.id,
         linkLead: data.Lead.LinkPublico,
@@ -133,7 +133,8 @@ function leadLost(data) {
     var origem = null;
     var subOrigem = null;
     var mercado = null;
-    var vendedor = {Nome: null,Email: null};
+    var vendedor = { Nome: null, Email: null };
+    var etpAnterior = null;
 
 
     if (data.Lead.SubOrigem != null)
@@ -147,6 +148,9 @@ function leadLost(data) {
 
     if (data.Lead.Vendedor != null)
         vendedor = data.Lead.Vendedor;
+
+    if (data.Lead.Etapas[data.Lead.Etapas] != null)
+        etpAnterior = data.Lead.Etapas[data.Lead.Etapas.length - 1].Etapa;
 
     const row = {
         leadId: data.Lead.id,
@@ -163,7 +167,7 @@ function leadLost(data) {
         vendedorEmail: vendedor.Email,
         dataCriacao: dateFormat(data.Lead.DtCadastro),
         dataDescarte: dateFormat(data.Lead.DtAtualizacao),
-        etapaAnterior: data.Lead.Etapas[data.Lead.Etapas.length-1].Etapa,
+        etapaAnterior: etpAnterior,
         motivoDescarte: data.Lead.MotivoDescarte,
         tempoDescarte: dateDiff(data.Lead.DtAtualizacao, data.Lead.DtCadastro)
     }
